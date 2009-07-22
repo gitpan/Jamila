@@ -1,0 +1,16 @@
+--- #YAML:1.0
+name:                Jamila
+version:             0.01
+abstract:            Perl extension for JSON Approach to Make Integration Linking Applications
+license:             ~
+author:              
+    - Kawai,Takanori <kwitknr@cpan.org>
+generated_by:        ExtUtils::MakeMaker version 6.42_01
+distribution_type:   module
+requires:     
+    CGI:                           
+    JSON:                          
+    utf8:                          
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
