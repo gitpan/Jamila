@@ -6,7 +6,7 @@ use CGI;
 use JSON;
 use LWP;
 our $oCgi;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 #--------------------------------------------------------------------
 # _disp: display about processing class
@@ -51,7 +51,8 @@ sub proc($$)
     {
       $oRes = $sMod->$sMethod($oCgi);
     };
-    $sMsg = $@ if($@);
+    return unless($@);
+    $sMsg = $@;
   }
   else
   {
@@ -82,15 +83,12 @@ sub proc($$)
       $sMsg = 'Jamila:: NO PARAM';
     }
   }
-  if($sMsg || $oRes)
-  {
-    binmode STDOUT, ':utf8';
-    print "Content-Type: text/plain; charset=UTF-8\n\n" . 
+  binmode STDOUT, ':utf8';
+  print "Content-Type: text/plain; charset=UTF-8\n\n" . 
       to_json({
                 error  => $sMsg,
                 result => $oRes,
               });
-  }
 }
 #---------------------------------------------------------------------
 # new : mainly for request

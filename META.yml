@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Jamila
-version:             0.01
+version:             0.02
 abstract:            Perl extension for JSON Approach to Make Integration Linking Applications
 license:             ~
 author:              

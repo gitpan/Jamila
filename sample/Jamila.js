@@ -9,23 +9,6 @@ if (!Jamila) var Jamila = function(sURL, fSt, fEnd, fExp)
 
   var _responseTxt;
   //---------------------------------------------------------------------
-  // _escapeSp
-  //---------------------------------------------------------------------
-  this._escapeSp = function(sObj)
-  {
-    return sObj.replace(/[^*+.-9A-Z_a-z-]/g,
-      function(s){
-        var c = s.charCodeAt(0);
-        var _toHex = function(iNo){
-           return '%' + ((iNo < 0x10)? '0' : '')+ iNo.toString(0x10);
-           };
-        return (c <  0x80 ? _toHex(c) : 
-              c < 0x800 ? _toHex(c >> 6 | 0xC0) + _toHex(c & 0x3F |0x80) :
-               _toHex(c >> 12 | 0xE0) + _toHex(c >>  6 & 0x3F|0x80) +
-               _toHex(c & 0x3F| 0x80));
-      });
-  };
-  //---------------------------------------------------------------------
   // handleError : Error Handling
   //---------------------------------------------------------------------
   this.handleError = function(sMsg)
@@ -82,7 +65,7 @@ if (!Jamila) var Jamila = function(sURL, fSt, fEnd, fExp)
           onException: fExp
         };
     var sPrm = (!aPrm)? '' : 
-          ('_prm=' + this._escapeSp(Object.toJSON(aPrm)));
+          ('_prm=' + encodeURIComponent(Object.toJSON(aPrm)));
     if(bGet)
     {
       hReq['method'] = 'get';
