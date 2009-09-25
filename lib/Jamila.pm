@@ -6,7 +6,7 @@ use CGI;
 use JSON;
 use LWP;
 our $oCgi;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 #--------------------------------------------------------------------
 # _disp: display about processing class
@@ -60,22 +60,29 @@ sub proc($$)
     {
       my $raData = from_json($sPrm);
       my ($sMethod, @aPrm) = @$raData;
-      eval
-      {
-        $oRes = $sMod->$sMethod(@aPrm);
-      };
-      if($@)
+      if(substr($sMethod, 0, 1) ne '_')
       {
         eval
         {
-          eval "require $sMod; import $sMod;";
           $oRes = $sMod->$sMethod(@aPrm);
         };
         if($@)
         {
-          $sMsg = $@;
-          $oRes = '';
+          eval
+          {
+            eval "require $sMod; import $sMod;";
+            $oRes = $sMod->$sMethod(@aPrm);
+          };
+          if($@)
+          {
+            $sMsg = $@;
+            $oRes = '';
+          }
         }
+      }
+      else
+      {
+        $sMsg = "Jamila:: can't call $sMethod";
       }
     }
     else

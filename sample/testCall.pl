@@ -14,6 +14,7 @@ my $oJm = Jamila->new(
 #  'http://hippo2000.atnifty.com/cgi-bin/jamila/testJamila.pl'
   'http://localhost/cgi-bin/jamila/testJamila.pl');
 print $oJm->call('echo', 'Test for Remote') . "\n";
+print $oJm->call('_echo', 'Test for Remote') . "\n";
 
 #(2) Call Local
 my $oJmL = Jamila->new(bless {}, 'SmpLocal');
